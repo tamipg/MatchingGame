@@ -47,6 +47,31 @@
     End Sub
 
     ''' <summary>
+    ''' Comprueba cada icono para ver si coincide, 
+    ''' comparando su color de primer plano con su color de fondo.
+    ''' Si todos los iconos coinciden, el jugador gana
+    ''' </summary>
+    Private Sub CheckForWinner()
+
+        ' Revisa todas las etiquetas en TableLayoutPanel,
+        ' revisando cada una para ver si su ícono coincide
+        For Each control In TableLayoutPanel1.Controls
+            Dim iconLabel As Label = TryCast(control, Label)
+            If iconLabel IsNot Nothing Then
+                If (iconLabel.ForeColor = iconLabel.BackColor) Then
+                    Return
+                End If
+            End If
+        Next
+
+        ' Si el bucle no regresó, no encontró cualquier ícono incomparable
+        ' Eso significa que el usuario ganó. Muestra un mensaje y cierra el formulario
+        MessageBox.Show("¡Has hecho coincidir todos los iconos!", "Felicidades")
+        Close()
+
+    End Sub
+
+    ''' <summary>
     ''' El evento Click de cada etiqueta es manejado por este controlador de eventos
     ''' </summary>
     ''' <param name="sender">La etiqueta en la que se hizo click</param>
@@ -114,10 +139,10 @@
     End Sub
 
     ''' <summary>
-    '' 'Este temporizador se inicia cuando el jugador hace clic
-    '' 'en dos iconos que no coinciden,
-    '' 'por lo que cuenta tres cuartos de segundo
-    '' 'y luego se apaga y oculta ambos íconos
+    ''' Este temporizador se inicia cuando el jugador hace clic
+    ''' en dos iconos que no coinciden,
+    ''' por lo que cuenta tres cuartos de segundo
+    ''' y luego se apaga y oculta ambos íconos
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
@@ -127,6 +152,9 @@
         ' Ocultar ambos iconos
         firstClicked.ForeColor = firstClicked.BackColor
         secondClicked.ForeColor = secondClicked.BackColor
+
+        ' Comprueba si el jugador ganó
+        CheckForWinner()
 
         ' Restablecer firstClicked y secondClicked
         ' así la próxima vez que se haga click en una etiqueta
