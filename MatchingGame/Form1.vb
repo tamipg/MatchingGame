@@ -96,6 +96,15 @@
             secondClicked = clickedLabel
             secondClicked.ForeColor = Color.Black
 
+            ' Si el jugador hizo clic en dos iconos coincidentes, manténgalos
+            ' black y reset firstClicked y secondClicked
+            ' para que el jugador pueda hacer clic en otro icono
+            If (firstClicked.Text = secondClicked.Text) Then
+                firstClicked = Nothing
+                secondClicked = Nothing
+                Return
+            End If
+
             ' Si el jugador llega tan lejos, el jugador
             ' hizo clic en dos iconos diferentes, así que inicie el
             ' timer (que esperará tres cuartos de
