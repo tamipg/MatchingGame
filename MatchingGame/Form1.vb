@@ -121,6 +121,9 @@
             secondClicked = clickedLabel
             secondClicked.ForeColor = Color.Black
 
+            ' Comprueba si el jugador ganó
+            CheckForWinner()
+
             ' Si el jugador hizo clic en dos iconos coincidentes, manténgalos
             ' black y reset firstClicked y secondClicked
             ' para que el jugador pueda hacer clic en otro icono
@@ -152,9 +155,6 @@
         ' Ocultar ambos iconos
         firstClicked.ForeColor = firstClicked.BackColor
         secondClicked.ForeColor = secondClicked.BackColor
-
-        ' Comprueba si el jugador ganó
-        CheckForWinner()
 
         ' Restablecer firstClicked y secondClicked
         ' así la próxima vez que se haga click en una etiqueta
