@@ -1,4 +1,12 @@
 ﻿Public Class Form1
+    ' sonido para fallo
+    Dim soundFail = New System.Media.SoundPlayer("C:\Windows\Media\chord.wav")
+
+    ' sonido para acierto
+    Dim soundOK = New System.Media.SoundPlayer("C:\Windows\Media\chimes.wav")
+
+    ' sonido reintentar
+    Dim soundRetry = New System.Media.SoundPlayer("C:\Windows\Media\ding.wav")
 
     ' Utilice este objeto aleatorio para elegir iconos aleatorios para los cuadrados.
     Dim random As New Random
@@ -94,15 +102,7 @@
             If (clickedLabel.ForeColor = Color.Black) Then
                 Return
             End If
-            ' Si firstClicked es Nothing, este es el primer icono
-            ' en el par en el que el jugador hizo clic,
-            ' establece firstClicked en la etiqueta que el jugador
-            ' hace clic, cambia su color a negro y vuelve
-            If (firstClicked Is Nothing) Then
-                firstClicked = clickedLabel
-                firstClicked.ForeColor = Color.Black
-                Return
-            End If
+
 
             ' Si firstClicked es Nothing, este es el primer icono
             ' en el par en el que el jugador hizo clic,
@@ -130,6 +130,7 @@
             If (firstClicked.Text = secondClicked.Text) Then
                 firstClicked = Nothing
                 secondClicked = Nothing
+                soundOK.Play()
                 Return
             End If
 
@@ -137,6 +138,7 @@
             ' hizo clic en dos iconos diferentes, así que inicie el
             ' timer (que esperará tres cuartos de
             ' un segundo, y luego esconde los íconos)
+            soundFail.Play()
             Timer1.Start()
         End If
     End Sub
@@ -155,6 +157,7 @@
         ' Ocultar ambos iconos
         firstClicked.ForeColor = firstClicked.BackColor
         secondClicked.ForeColor = secondClicked.BackColor
+        soundRetry.Play()
 
         ' Restablecer firstClicked y secondClicked
         ' así la próxima vez que se haga click en una etiqueta
